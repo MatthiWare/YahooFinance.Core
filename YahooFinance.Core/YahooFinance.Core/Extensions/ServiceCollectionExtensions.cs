@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace YahooFinance.Core.Extensions
+namespace MatthiWare.YahooFinance.Core.Extensions
 {
     public static class ServiceCollectionExtensions
     {
