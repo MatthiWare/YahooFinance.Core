@@ -1,4 +1,5 @@
-﻿using MatthiWare.YahooFinance.Core.Search;
+﻿using MatthiWare.YahooFinance.Abstractions.Http;
+using MatthiWare.YahooFinance.Core.Search;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,6 +11,6 @@ namespace MatthiWare.YahooFinance.Core.Abstractions.Search
     /// </summary>
     public interface ISearchService
     {
-        Task<IEnumerable<QuoteResult>> SearchAsync(string search, CancellationToken cancellationToken = default);
+        Task<IApiResponse<IEnumerable<QuoteResult>>> SearchAsync(string search, CancellationToken cancellationToken = default);
     }
 }

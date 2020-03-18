@@ -9,6 +9,8 @@ using MatthiWare.YahooFinance.Core.Abstractions.Search;
 using MatthiWare.YahooFinance.Core.History;
 using MatthiWare.YahooFinance.Core.Quote;
 using MatthiWare.YahooFinance.Core.Search;
+using MatthiWare.YahooFinance.Abstractions.Http;
+using MatthiWare.YahooFinance.Core.Http;
 
 namespace MatthiWare.YahooFinance.Core
 {
@@ -22,10 +24,11 @@ namespace MatthiWare.YahooFinance.Core
         private readonly Lazy<IQuoteService> quoteServiceLazy;
         private readonly Lazy<IHistoryService> historyServiceLazy;
         private readonly HttpClient client;
+        private readonly IApiClient apiClient;
 
         private YahooFinanceClient()
         {
-            searchServiceLazy = new Lazy<ISearchService>(() => new SearchService(client, logger));
+            searchServiceLazy = new Lazy<ISearchService>(() => new SearchService(apiClient, logger));
             quoteServiceLazy = new Lazy<IQuoteService>(() => new QuoteService());
             historyServiceLazy = new Lazy<IHistoryService>(() => new HistoryService());
         }
@@ -40,7 +43,9 @@ namespace MatthiWare.YahooFinance.Core
                 BaseAddress = new Uri(BaseUrl)
             };
 
-            client.DefaultRequestHeaders.Add("User-Agent", "MatthiWare.YahooFinance.Core .NET API");
+            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36");
+
+            apiClient = new ApiClient(client, logger);
         }
 
         public ISearchService Search => searchServiceLazy.Value;
