@@ -1,5 +1,6 @@
 ﻿using MatthiWare.YahooFinance.Abstractions.Http;
 using MatthiWare.YahooFinance.Core.Helpers;
+using MatthiWare.YahooFinance.Core.Search;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -23,7 +24,8 @@ namespace MatthiWare.YahooFinance.Core.Http
 
 			jsonSerializerSettings = new JsonSerializerSettings
 			{
-				NullValueHandling = NullValueHandling.Ignore
+				NullValueHandling = NullValueHandling.Ignore,
+				MissingMemberHandling = MissingMemberHandling.Ignore,
 			};
 		}
 
@@ -38,8 +40,6 @@ namespace MatthiWare.YahooFinance.Core.Http
 				try
 				{
 					content = await responseContent.Content.ReadAsStringAsync();
-
-					dynamic xd = JsonConvert.DeserializeObject<dynamic>(content, jsonSerializerSettings);
 
 					if (content.Length > 7 && content.Substring(startIndex: 0, length: 8) == "{\"error\"")
 					{ 

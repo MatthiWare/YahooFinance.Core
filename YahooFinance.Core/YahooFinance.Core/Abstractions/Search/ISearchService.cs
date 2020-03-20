@@ -11,6 +11,6 @@ namespace MatthiWare.YahooFinance.Core.Abstractions.Search
     /// </summary>
     public interface ISearchService
     {
-        Task<IApiResponse<IEnumerable<QuoteResult>>> SearchAsync(string search, CancellationToken cancellationToken = default);
+        Task<IApiResponse<IReadOnlyList<QuoteResult>>> SearchAsync(string search, CancellationToken cancellationToken = default);
     }
 }
