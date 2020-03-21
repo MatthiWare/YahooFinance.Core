@@ -8,7 +8,7 @@ namespace MatthiWare.YahooFinance.Abstractions.Http
     public interface IApiClient : IDisposable
     {
         Task<IApiResponse<ReturnType>> ExecuteAsync<ReturnType>(
-            string urlPattern, NameValueCollection pathNVC, QueryStringBuilder qsb)
+            string urlPattern, QueryStringBuilder qsb)
             where ReturnType : class;
     }
 }

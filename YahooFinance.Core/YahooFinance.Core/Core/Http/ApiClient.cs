@@ -29,7 +29,7 @@ namespace MatthiWare.YahooFinance.Core.Http
 		}
 
 		public async Task<IApiResponse<ReturnType>> ExecuteAsync<ReturnType>(
-			string urlPattern, NameValueCollection pathNVC, QueryStringBuilder qsb)
+			string urlPattern, QueryStringBuilder qsb)
 			where ReturnType : class
 		{
 			var url = $"{urlPattern}{qsb.Build()}";

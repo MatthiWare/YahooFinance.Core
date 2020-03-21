@@ -28,7 +28,7 @@ namespace MatthiWare.YahooFinance.Core
         private YahooFinanceClient()
         {
             searchServiceLazy = new Lazy<ISearchService>(() => new SearchService(apiClient, logger));
-            quoteServiceLazy = new Lazy<IQuoteService>(() => new QuoteService());
+            quoteServiceLazy = new Lazy<IQuoteService>(() => new QuoteService(apiClient, logger));
             historyServiceLazy = new Lazy<IHistoryService>(() => new HistoryService());
         }
 
