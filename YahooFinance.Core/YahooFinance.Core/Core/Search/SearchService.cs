@@ -42,7 +42,7 @@ namespace MatthiWare.YahooFinance.Core.Search
             var qsb = new QueryStringBuilder();
             qsb.Add("q", search);
 
-            var apiResult = await client.ExecuteAsync<SearchResultResponse>(url, null, qsb);
+            var apiResult = await client.ExecuteAsync<SearchResultResponse>(url, qsb);
 
             logger.LogDebug("SearchAsync completed in {ResponseTime} with status code {StatusCode}", apiResult.Metadata.ResponseTime, apiResult.Metadata.StatusCode);
 

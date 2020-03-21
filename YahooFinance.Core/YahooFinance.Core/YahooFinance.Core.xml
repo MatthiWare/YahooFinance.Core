@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YahooFinance.Core</name>
+    </assembly>
+    <members>
+        <member name="T:MatthiWare.YahooFinance.Core.Abstractions.Quote.IQuoteService">
+            <summary>
+            https://query1.finance.yahoo.com/v7/finance/quote?symbols=O,MSFT
+            </summary>
+        </member>
+        <member name="T:MatthiWare.YahooFinance.Core.Abstractions.Search.ISearchService">
+            <summary>
+            https://query1.finance.yahoo.com/v1/finance/search?q=O
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:MatthiWare.YahooFinance.Core.Helpers.QueryStringBuilder" -->
+    </members>
+</doc>
