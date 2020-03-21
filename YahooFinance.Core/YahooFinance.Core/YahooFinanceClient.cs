@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using MatthiWare.YahooFinance.Core.Abstractions.History;
 using MatthiWare.YahooFinance.Core.Abstractions.Quote;
 using MatthiWare.YahooFinance.Core.Abstractions.Search;

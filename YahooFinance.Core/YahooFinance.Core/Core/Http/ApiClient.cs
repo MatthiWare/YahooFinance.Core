@@ -1,9 +1,7 @@
 ﻿using MatthiWare.YahooFinance.Abstractions.Http;
 using MatthiWare.YahooFinance.Core.Helpers;
-using MatthiWare.YahooFinance.Core.Search;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Specialized;
 using System.Net.Http;
@@ -26,6 +24,7 @@ namespace MatthiWare.YahooFinance.Core.Http
 			{
 				NullValueHandling = NullValueHandling.Ignore,
 				MissingMemberHandling = MissingMemberHandling.Ignore,
+				MaxDepth = 7
 			};
 		}
 
@@ -33,32 +32,32 @@ namespace MatthiWare.YahooFinance.Core.Http
 			string urlPattern, NameValueCollection pathNVC, QueryStringBuilder qsb)
 			where ReturnType : class
 		{
-			var content = string.Empty;
+			var url = $"{urlPattern}{qsb.Build()}";
 
-			using (var responseContent = await client.GetAsync($"{urlPattern}{qsb.Build()}"))
+			logger.LogDebug("Executing GET on {url}", url);
+
+			HttpMetadata meta = null;
+			var startTime = DateTime.UtcNow;
+
+			using (var responseContent = await client.GetAsync(url))
 			{
 				try
 				{
-					content = await responseContent.Content.ReadAsStringAsync();
+					meta = new HttpMetadata(responseContent.StatusCode, responseContent.ReasonPhrase, (DateTime.UtcNow - startTime));
 
-					if (content.Length > 7 && content.Substring(startIndex: 0, length: 8) == "{\"error\"")
-					{ 
-						var token = JToken.Parse(content);
-						return new ApiResponse<ReturnType>() { Error = token["error"].ToString() };
-					}
-					else if (content == "Forbidden")
-					{ 
-						return new ApiResponse<ReturnType>() { Error = content };
-					}
-					else return new ApiResponse<ReturnType>()
-					{
+					logger.LogDebug("Response status code: {StatusCode}", responseContent.StatusCode);
 
-						Data = JsonConvert.DeserializeObject<ReturnType>(content, jsonSerializerSettings)
-					};
+					var content = await responseContent.EnsureSuccessStatusCode().Content.ReadAsStringAsync();
+
+					var data = JsonConvert.DeserializeObject<ReturnType>(content, jsonSerializerSettings);
+
+					logger.LogDebug("Correctly deserialized response");
+
+					return ApiResponse.FromSucces(meta, data);
 				}
-				catch (JsonException ex)
+				catch (Exception ex)
 				{
-					throw new JsonException(content, ex);
+					return ApiResponse.FromError<ReturnType>(meta, ex.ToString());
 				}
 			}
 		}

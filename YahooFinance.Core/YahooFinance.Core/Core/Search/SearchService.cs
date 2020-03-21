@@ -6,7 +6,6 @@ using MatthiWare.YahooFinance.Core.Http;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,11 +15,23 @@ namespace MatthiWare.YahooFinance.Core.Search
     {
         private readonly IApiClient client;
         private readonly ILogger logger;
+        private readonly IMapper mapper;
 
         public SearchService(IApiClient client, ILogger logger)
         {
             this.client = client;
             this.logger = logger;
+
+            var mapperConfig = new MapperConfiguration(_ =>
+            {
+                _.SourceMemberNamingConvention = new LowerUnderscoreNamingConvention();
+                _.DestinationMemberNamingConvention = new PascalCaseNamingConvention();
+                _.CreateMap<QuoteResultResponse, QuoteResult>();
+            });
+
+            mapper = mapperConfig.CreateMapper();
+
+            logger.LogDebug("Created SearchService instance");
         }
 
         public async Task<IApiResponse<IReadOnlyList<QuoteResult>>> SearchAsync(string search, CancellationToken cancellationToken = default)
@@ -32,21 +43,16 @@ namespace MatthiWare.YahooFinance.Core.Search
 
             var apiResult = await client.ExecuteAsync<SearchResultResponse>(url, null, qsb);
 
-            if (apiResult.HasError) 
-                return new ApiResponse<IReadOnlyList<QuoteResult>>() { Error = apiResult.Error };
+            logger.LogDebug("SearchAsync completed in {ResponseTime} with status code {StatusCode}", apiResult.Metadata.ResponseTime, apiResult.Metadata.StatusCode);
 
-            var cfg = new MapperConfiguration(_ => 
-            {
-                _.SourceMemberNamingConvention = new LowerUnderscoreNamingConvention();
-                _.DestinationMemberNamingConvention = new PascalCaseNamingConvention();
-                _.CreateMap<QuoteResultResponse, QuoteResult>();
-            });
+            if (apiResult.HasError)
+                return ApiResponse.FromError<IReadOnlyList<QuoteResult>>(apiResult.Metadata, apiResult.Error);
 
-            var mapper = cfg.CreateMapper();
+            var results = (IReadOnlyList<QuoteResult>)(apiResult.Data.quotes.OrderByDescending(q => q.score).Select(r => mapper.Map<QuoteResult>(r)).ToList());
 
-            var results = apiResult.Data.quotes.OrderByDescending(q => q.score).Select(r => mapper.Map<QuoteResult>(r)).ToList();
+            logger.LogDebug("SearchAsync returns SUCCES - found {count} results", results.Count);
 
-            return new ApiResponse<IReadOnlyList<QuoteResult>> { Data = results };
+            return ApiResponse.FromSucces(apiResult.Metadata, results);
             
         }
     }

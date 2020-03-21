@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MatthiWare.YahooFinance.Core.Abstractions.Search
 {
     /// <summary>
-    /// https://query1.finance.yahoo.com/v1/finance/search?q=jfsmfjmfjqmfsqmfsqffs
+    /// https://query1.finance.yahoo.com/v1/finance/search?q=O
     /// </summary>
     public interface ISearchService
     {
