@@ -9,6 +9,7 @@ using MatthiWare.YahooFinance.Core.Quote;
 using MatthiWare.YahooFinance.Core.Search;
 using MatthiWare.YahooFinance.Abstractions.Http;
 using MatthiWare.YahooFinance.Core.Http;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace MatthiWare.YahooFinance.Core
 {
@@ -34,7 +35,7 @@ namespace MatthiWare.YahooFinance.Core
         public YahooFinanceClient(ILogger<YahooFinanceClient> logger)
             : this()
         {
-            this.logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
+            this.logger = logger ?? NullLogger<YahooFinanceClient>.Instance;
 
             client = new HttpClient()
             {
@@ -51,5 +52,10 @@ namespace MatthiWare.YahooFinance.Core
         public IQuoteService Quote => quoteServiceLazy.Value;
 
         public IHistoryService History => historyServiceLazy.Value;
+
+        public void Dispose()
+        {
+            apiClient.Dispose();
+        }
     }
 }

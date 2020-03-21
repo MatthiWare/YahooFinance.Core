@@ -1,5 +1,6 @@
 ﻿using MatthiWare.YahooFinance.Abstractions.Http;
 using MatthiWare.YahooFinance.Core.Search;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;

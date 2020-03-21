@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MatthiWare.YahooFinance.Core.Http
 {
-    public class ApiClient : IApiClient
+    public class ApiClient : IApiClient, IDisposable
     {
 		private readonly HttpClient client;
 		private readonly ILogger logger;
@@ -60,6 +60,11 @@ namespace MatthiWare.YahooFinance.Core.Http
 					return ApiResponse.FromError<ReturnType>(meta, ex.ToString());
 				}
 			}
+		}
+
+		public void Dispose()
+		{
+			client.Dispose();
 		}
 	}
 }
