@@ -1,10 +1,10 @@
-﻿using MatthiWare.YahooFinance.Core;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 using YahooFinance.Tests.Extensions;
 using Microsoft.Extensions.Logging;
+using MatthiWare.YahooFinance;
 
 namespace YahooFinance.Tests.Search
 {

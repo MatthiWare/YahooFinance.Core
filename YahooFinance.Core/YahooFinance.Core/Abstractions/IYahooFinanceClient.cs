@@ -1,9 +1,9 @@
-﻿using MatthiWare.YahooFinance.Core.Abstractions.History;
-using MatthiWare.YahooFinance.Core.Abstractions.Quote;
-using MatthiWare.YahooFinance.Core.Abstractions.Search;
+﻿using MatthiWare.YahooFinance.Abstractions.History;
+using MatthiWare.YahooFinance.Abstractions.Quote;
+using MatthiWare.YahooFinance.Abstractions.Search;
 using System;
 
-namespace MatthiWare.YahooFinance.Core
+namespace MatthiWare.YahooFinance
 {
     public interface IYahooFinanceClient : IDisposable
     {

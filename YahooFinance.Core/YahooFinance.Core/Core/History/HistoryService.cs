@@ -1,5 +1,4 @@
 ﻿using MatthiWare.YahooFinance.Abstractions.Http;
-using MatthiWare.YahooFinance.Core.Abstractions.History;
 using MatthiWare.YahooFinance.Core.Helpers;
 using MatthiWare.YahooFinance.Core.Http;
 using Microsoft.Extensions.Logging;
@@ -10,6 +9,8 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Threading;
 using System.Threading.Tasks;
+using MatthiWare.YahooFinance.Abstractions.History;
+using MatthiWare.YahooFinance.Core.Enums;
 
 namespace MatthiWare.YahooFinance.Core.History
 {

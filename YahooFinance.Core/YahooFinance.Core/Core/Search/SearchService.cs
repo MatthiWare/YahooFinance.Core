@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using MatthiWare.YahooFinance.Abstractions.Http;
-using MatthiWare.YahooFinance.Core.Abstractions.Search;
+using MatthiWare.YahooFinance.Abstractions.Search;
 using MatthiWare.YahooFinance.Core.Helpers;
 using MatthiWare.YahooFinance.Core.Http;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;

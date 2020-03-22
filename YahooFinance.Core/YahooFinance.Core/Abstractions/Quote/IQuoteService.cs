@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MatthiWare.YahooFinance.Core.Abstractions.Quote
+namespace MatthiWare.YahooFinance.Abstractions.Quote
 {
     /// <summary>
     /// https://query1.finance.yahoo.com/v7/finance/quote?symbols=O,MSFT

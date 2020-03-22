@@ -4,13 +4,33 @@
         <name>YahooFinance.Core</name>
     </assembly>
     <members>
-        <!-- Badly formed XML comment ignored for member "T:MatthiWare.YahooFinance.Core.Abstractions.History.IHistoryService" -->
-        <member name="T:MatthiWare.YahooFinance.Core.Abstractions.Quote.IQuoteService">
+        <!-- Badly formed XML comment ignored for member "T:MatthiWare.YahooFinance.Abstractions.History.IHistoryService" -->
+        <member name="P:MatthiWare.YahooFinance.Abstractions.Http.IApiResponse`1.Metadata">
+            <summary>
+            API Call Metadata
+            </summary>
+        </member>
+        <member name="P:MatthiWare.YahooFinance.Abstractions.Http.IApiResponse`1.Error">
+            <summary>
+            Error message
+            </summary>
+        </member>
+        <member name="P:MatthiWare.YahooFinance.Abstractions.Http.IApiResponse`1.HasError">
+            <summary>
+            Indicates if the response is in error state
+            </summary>
+        </member>
+        <member name="P:MatthiWare.YahooFinance.Abstractions.Http.IApiResponse`1.Data">
+            <summary>
+            Data result
+            </summary>
+        </member>
+        <member name="T:MatthiWare.YahooFinance.Abstractions.Quote.IQuoteService">
             <summary>
             https://query1.finance.yahoo.com/v7/finance/quote?symbols=O,MSFT
             </summary>
         </member>
-        <member name="T:MatthiWare.YahooFinance.Core.Abstractions.Search.ISearchService">
+        <member name="T:MatthiWare.YahooFinance.Abstractions.Search.ISearchService">
             <summary>
             https://query1.finance.yahoo.com/v1/finance/search?q=O
             </summary>

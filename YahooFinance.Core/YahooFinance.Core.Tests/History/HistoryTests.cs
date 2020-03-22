@@ -1,9 +1,6 @@
-﻿using MatthiWare.YahooFinance.Core;
+﻿using MatthiWare.YahooFinance;
 using Microsoft.Extensions.Logging;
 using NodaTime;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;

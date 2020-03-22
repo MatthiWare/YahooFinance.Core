@@ -1,5 +1,4 @@
 ﻿using NodaTime;
-using CsvHelper;
 using CsvHelper.Configuration.Attributes;
 
 namespace MatthiWare.YahooFinance.Core.History
