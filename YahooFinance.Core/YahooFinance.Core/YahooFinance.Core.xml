@@ -4,6 +4,7 @@
         <name>YahooFinance.Core</name>
     </assembly>
     <members>
+        <!-- Badly formed XML comment ignored for member "T:MatthiWare.YahooFinance.Core.Abstractions.History.IHistoryService" -->
         <member name="T:MatthiWare.YahooFinance.Core.Abstractions.Quote.IQuoteService">
             <summary>
             https://query1.finance.yahoo.com/v7/finance/quote?symbols=O,MSFT
