@@ -1,4 +1,4 @@
-﻿namespace MatthiWare.YahooFinance.Core.History
+﻿namespace MatthiWare.YahooFinance.Core.Enums
 {
     public enum HistoryInterval
     {

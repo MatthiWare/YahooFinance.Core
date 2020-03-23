@@ -1,4 +1,4 @@
-﻿using MatthiWare.YahooFinance.Core;
+﻿using MatthiWare.YahooFinance;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MatthiWare.YahooFinance.Abstractions.Http;
-using MatthiWare.YahooFinance.Core.Abstractions.Quote;
+using MatthiWare.YahooFinance.Abstractions.Quote;
 using MatthiWare.YahooFinance.Core.Helpers;
 using MatthiWare.YahooFinance.Core.Http;
 using Microsoft.Extensions.Logging;

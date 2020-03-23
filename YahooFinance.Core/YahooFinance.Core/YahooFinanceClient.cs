@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Net.Http;
-using MatthiWare.YahooFinance.Core.Abstractions.History;
-using MatthiWare.YahooFinance.Core.Abstractions.Quote;
-using MatthiWare.YahooFinance.Core.Abstractions.Search;
+using MatthiWare.YahooFinance.Abstractions.History;
+using MatthiWare.YahooFinance.Abstractions.Quote;
+using MatthiWare.YahooFinance.Abstractions.Search;
 using MatthiWare.YahooFinance.Core.History;
 using MatthiWare.YahooFinance.Core.Quote;
 using MatthiWare.YahooFinance.Core.Search;
@@ -11,7 +11,7 @@ using MatthiWare.YahooFinance.Abstractions.Http;
 using MatthiWare.YahooFinance.Core.Http;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace MatthiWare.YahooFinance.Core
+namespace MatthiWare.YahooFinance
 {
     public class YahooFinanceClient : IYahooFinanceClient
     {

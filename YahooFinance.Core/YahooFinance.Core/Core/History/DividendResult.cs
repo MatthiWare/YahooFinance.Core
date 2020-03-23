@@ -1,8 +1,9 @@
-﻿using NodaTime;
+﻿using MatthiWare.YahooFinance.Abstractions.History;
+using NodaTime;
 
 namespace MatthiWare.YahooFinance.Core.History
 {
-    public class DividendResult
+    public class DividendResult : IHistoryItem
     {
         public Instant Date { get; set; }
         public decimal Dividends { get; set; }

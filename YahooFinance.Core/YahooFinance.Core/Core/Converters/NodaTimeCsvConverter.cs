@@ -3,7 +3,7 @@ using CsvHelper.Configuration;
 using CsvHelper.TypeConversion;
 using NodaTime.Text;
 
-namespace MatthiWare.YahooFinance.Core.Converters.NodaTime
+namespace MatthiWare.YahooFinance.Core.Converters
 {
     public class NodaTimeCsvConverter : DefaultTypeConverter
     {
