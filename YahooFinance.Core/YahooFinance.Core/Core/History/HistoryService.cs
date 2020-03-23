@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MatthiWare.YahooFinance.Abstractions.History;
 using MatthiWare.YahooFinance.Core.Enums;
+using System.Runtime.CompilerServices;
 
 namespace MatthiWare.YahooFinance.Core.History
 {
@@ -29,44 +30,101 @@ namespace MatthiWare.YahooFinance.Core.History
 
         public async Task<IApiResponse<IReadOnlyList<DividendResult>>> GetDividendsAsync(string symbol, Instant start, Instant end, HistoryInterval interval = HistoryInterval.Daily, CancellationToken cancellationToken = default)
         {
-            const string url = "v7/finance/download/[symbol]";
-
             if (start >= end)
                 return ApiResponse.FromError<IReadOnlyList<DividendResult>>(null, "Start date needs to happen before end date");
+
+            var apiResult = await GetData<DividendResult>(symbol, start, end, interval, cancellationToken);
+
+            logger.LogDebug("{Svc}::GetDividendsAsync completed in {ResponseTime} with status code {StatusCode} reason {ReasonPhrase}", nameof(HistoryService), apiResult.Metadata.ResponseTime, apiResult.Metadata.StatusCode, apiResult.Metadata.ReasonPhrase);
+
+            if (apiResult.HasError)
+                return ApiResponse.FromError<IReadOnlyList<DividendResult>>(apiResult.Metadata, apiResult.Error);
+
+            var results = (IReadOnlyList<DividendResult>)(apiResult.Data
+                .Where(d => d.Dividends != 0)
+                .OrderByDescending(d => d.Date)
+                .ToList());
+
+            logger.LogDebug("HistoryService::GetDividendsAsync returns SUCCES - found {count} results", results.Count);
+
+            return ApiResponse.FromSucces(apiResult.Metadata, results);
+        }
+
+        public async Task<IApiResponse<IReadOnlyList<HistoryResult>>> GetPricesAsync(string symbol, Instant start, Instant end, HistoryInterval interval = HistoryInterval.Daily, CancellationToken cancellationToken = default)
+        {
+            if (start >= end)
+                return ApiResponse.FromError<IReadOnlyList<HistoryResult>>(null, "Start date needs to happen before end date");
+
+            var apiResult = await GetData<HistoryResult>(symbol, start, end, interval, cancellationToken);
+
+            logger.LogDebug("{Svc}::GetPricesAsync completed in {ResponseTime} with status code {StatusCode} reason {ReasonPhrase}", nameof(HistoryService), apiResult.Metadata.ResponseTime, apiResult.Metadata.StatusCode, apiResult.Metadata.ReasonPhrase);
+
+            if (apiResult.HasError)
+                return ApiResponse.FromError<IReadOnlyList<HistoryResult>>(apiResult.Metadata, apiResult.Error);
+
+            var results = (IReadOnlyList<HistoryResult>)(apiResult.Data
+                .Where(d => d.AdjustedClose != 0 && d.Close != 0 && d.Open != 0)
+                .OrderByDescending(d => d.Date)
+                .ToList());
+
+            logger.LogDebug("HistoryService::GetPricesAsync returns SUCCES - found {count} results", results.Count);
+
+            return ApiResponse.FromSucces(apiResult.Metadata, results);
+        }
+
+        public async Task<IApiResponse<IReadOnlyList<SplitResult>>> GetSplitsAsync(string symbol, Instant start, Instant end, HistoryInterval interval = HistoryInterval.Daily, CancellationToken cancellationToken = default)
+        {
+            if (start >= end)
+                return ApiResponse.FromError<IReadOnlyList<SplitResult>>(null, "Start date needs to happen before end date");
+
+            var apiResult = await GetData<SplitResult>(symbol, start, end, interval, cancellationToken);
+
+            logger.LogDebug("{Svc}::GetSplitsAsync completed in {ResponseTime} with status code {StatusCode} reason {ReasonPhrase}", nameof(HistoryService), apiResult.Metadata.ResponseTime, apiResult.Metadata.StatusCode, apiResult.Metadata.ReasonPhrase);
+
+            if (apiResult.HasError)
+                return ApiResponse.FromError<IReadOnlyList<SplitResult>>(apiResult.Metadata, apiResult.Error);
+
+            var results = (IReadOnlyList<SplitResult>)(apiResult.Data
+                .Where(d => d.Split.Before != 0 && d.Split.After != 0)
+                .OrderByDescending(d => d.Date)
+                .ToList());
+
+            logger.LogDebug("HistoryService::GetSplitsAsync returns SUCCES - found {count} results", results.Count);
+
+            return ApiResponse.FromSucces(apiResult.Metadata, results);
+        }
+
+        private async Task<IApiResponse<IEnumerable<T>>> GetData<T>(string symbol, Instant start, Instant end, HistoryInterval interval, CancellationToken cancellationToken)
+            where T : class, IHistoryItem
+        {
+            const string url = "v7/finance/download/[symbol]";
 
             var qsb = new QueryStringBuilder();
             qsb.Add("interval", IntervalToString(interval));
             qsb.Add("period1", start.ToUnixTimeSeconds());
             qsb.Add("period2", end.ToUnixTimeSeconds());
-            qsb.Add("events", "div");
+            qsb.Add("events", GetEventTypeFromHistoryItem<T>());
 
             var nvc = new NameValueCollection()
             {
                 { "symbol", symbol }
             };
 
-            var apiResult = await client.ExecuteCsvAsync<DividendResult>(url, nvc, qsb);
-
-            logger.LogDebug("HistoryService::GetDividendsAsync completed in {ResponseTime} with status code {StatusCode} reason {ReasonPhrase}", apiResult.Metadata.ResponseTime, apiResult.Metadata.StatusCode, apiResult.Metadata.ReasonPhrase);
-
-            if (apiResult.HasError)
-                return ApiResponse.FromError<IReadOnlyList<DividendResult>>(apiResult.Metadata, apiResult.Error);
-
-            var results = (IReadOnlyList<DividendResult>)(apiResult.Data.Where(d => d.Dividends != 0).OrderByDescending(d => d.Date).ToList());
-
-            logger.LogDebug("HistoryService::LookupAsync returns SUCCES - found {count} results", results.Count);
-
-            return ApiResponse.FromSucces(apiResult.Metadata, results);
+            return await client.ExecuteCsvAsync<T>(url, nvc, qsb);
         }
 
-        public Task<IApiResponse<IReadOnlyList<DividendResult>>> GetPricesAsync(string symbol, Instant start, Instant end, HistoryInterval interval = HistoryInterval.Daily, CancellationToken cancellationToken = default)
+        private string GetEventTypeFromHistoryItem<T>()
+            where T : IHistoryItem
         {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<IApiResponse<IReadOnlyList<DividendResult>>> GetSplitsAsync(string symbol, Instant start, Instant end, HistoryInterval interval = HistoryInterval.Daily, CancellationToken cancellationToken = default)
-        {
-            throw new System.NotImplementedException();
+            var type = typeof(T);
+            if (type == typeof(HistoryResult))
+                return "history";
+            else if (type == typeof(DividendResult))
+                return "div";
+            else if (type == typeof(SplitResult))
+                return "split";
+            else
+                throw new NotImplementedException("No event type for given history item");
         }
 
         private string IntervalToString(HistoryInterval interval)

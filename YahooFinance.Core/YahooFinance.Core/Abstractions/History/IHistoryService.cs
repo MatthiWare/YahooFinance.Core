@@ -14,7 +14,7 @@ namespace MatthiWare.YahooFinance.Abstractions.History
     public interface IHistoryService
     {
         Task<IApiResponse<IReadOnlyList<DividendResult>>> GetDividendsAsync(string symbol, Instant start, Instant end, HistoryInterval interval = HistoryInterval.Daily, CancellationToken cancellationToken = default);
-        Task<IApiResponse<IReadOnlyList<DividendResult>>> GetPricesAsync(string symbol, Instant start, Instant end, HistoryInterval interval = HistoryInterval.Daily, CancellationToken cancellationToken = default);
-        Task<IApiResponse<IReadOnlyList<DividendResult>>> GetSplitsAsync(string symbol, Instant start, Instant end, HistoryInterval interval = HistoryInterval.Daily, CancellationToken cancellationToken = default);
+        Task<IApiResponse<IReadOnlyList<HistoryResult>>> GetPricesAsync(string symbol, Instant start, Instant end, HistoryInterval interval = HistoryInterval.Daily, CancellationToken cancellationToken = default);
+        Task<IApiResponse<IReadOnlyList<SplitResult>>> GetSplitsAsync(string symbol, Instant start, Instant end, HistoryInterval interval = HistoryInterval.Daily, CancellationToken cancellationToken = default);
     }
 }
