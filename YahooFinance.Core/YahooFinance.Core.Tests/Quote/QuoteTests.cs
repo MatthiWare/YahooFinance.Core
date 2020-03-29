@@ -1,6 +1,7 @@
 ﻿using MatthiWare.YahooFinance;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
@@ -40,6 +41,19 @@ namespace YahooFinance.Tests.Quote
 
             Assert.True(result.HasError);
             Assert.NotNull(result.Error);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(50)]
+        public async Task CheckCancelledResult(int after)
+        {
+            var client = new YahooFinanceClient(logger);
+
+            var cts = new CancellationTokenSource();
+            cts.CancelAfter(after);
+
+            await client.Quote.LookupAsync("O", cts.Token).CheckCancelledAsync();
         }
     }
 }

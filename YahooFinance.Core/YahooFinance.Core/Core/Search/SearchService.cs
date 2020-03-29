@@ -41,7 +41,7 @@ namespace MatthiWare.YahooFinance.Core.Search
             var qsb = new QueryStringBuilder();
             qsb.Add("q", search);
 
-            var apiResult = await client.ExecuteJsonAsync<SearchResultResponse>(url, qsb);
+            var apiResult = await client.ExecuteJsonAsync<SearchResultResponse>(url, qsb, cancellationToken);
 
             logger.LogDebug("SearchService::SearchAsync completed in {ResponseTime} with status code {StatusCode} reason {ReasonPhrase}", apiResult.Metadata.ResponseTime, apiResult.Metadata.StatusCode, apiResult.Metadata.ReasonPhrase);
 
@@ -50,7 +50,7 @@ namespace MatthiWare.YahooFinance.Core.Search
 
             var results = (IReadOnlyList<QuoteResult>)(apiResult.Data.quotes.OrderByDescending(q => q.score).Select(r => mapper.Map<QuoteResult>(r)).ToList());
 
-            logger.LogDebug("SearchService::SearchAsync returns SUCCES - found {count} results", results.Count);
+            logger.LogInformation("SearchService::SearchAsync returns SUCCES - found {count} results", results.Count);
 
             return ApiResponse.FromSucces(apiResult.Metadata, results);
             

@@ -43,7 +43,7 @@ namespace MatthiWare.YahooFinance.Core.Quote
             var qsb = new QueryStringBuilder();
             qsb.Add("symbols", symbol);
 
-            var apiResult = await client.ExecuteJsonAsync<QuoteJsonResponse>(url, qsb);
+            var apiResult = await client.ExecuteJsonAsync<QuoteJsonResponse>(url, qsb, cancellationToken);
 
             logger.LogDebug("QuoteService::LookupAsync completed in {ResponseTime} with status code {StatusCode} reason {ReasonPhrase}", apiResult.Metadata.ResponseTime, apiResult.Metadata.StatusCode, apiResult.Metadata.ReasonPhrase);
 
@@ -55,7 +55,7 @@ namespace MatthiWare.YahooFinance.Core.Quote
 
             var results = (IReadOnlyList<SecurityResult>)(apiResult.Data.QuoteResponse.Result);
 
-            logger.LogDebug("QuoteService::LookupAsync returns SUCCES - found {count} results", results.Count);
+            logger.LogInformation("QuoteService::LookupAsync returns SUCCES - found {count} results", results.Count);
 
             return ApiResponse.FromSucces(apiResult.Metadata, results);
         }

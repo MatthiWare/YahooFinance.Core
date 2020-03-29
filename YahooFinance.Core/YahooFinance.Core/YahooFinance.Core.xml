@@ -35,6 +35,52 @@
             https://query1.finance.yahoo.com/v1/finance/search?q=O
             </summary>
         </member>
+        <member name="T:MatthiWare.YahooFinance.IYahooFinanceClient">
+            <summary>
+            Yahoo! Finance API Client
+            </summary>
+        </member>
+        <member name="P:MatthiWare.YahooFinance.IYahooFinanceClient.Search">
+            <summary>
+            Search for a ticker symbol or ISIN
+            </summary>
+        </member>
+        <member name="P:MatthiWare.YahooFinance.IYahooFinanceClient.Quote">
+            <summary>
+            Look up quotes
+            </summary>
+        </member>
+        <member name="P:MatthiWare.YahooFinance.IYahooFinanceClient.History">
+            <summary>
+            Historical data
+            </summary>
+        </member>
         <!-- Badly formed XML comment ignored for member "T:MatthiWare.YahooFinance.Core.Helpers.QueryStringBuilder" -->
+        <member name="M:MatthiWare.YahooFinance.Extensions.ServiceCollectionExtensions.AddYahooFinance(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds <see cref="T:MatthiWare.YahooFinance.IYahooFinanceClient"/> to the services.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="T:MatthiWare.YahooFinance.YahooFinanceClient">
+            <summary>
+            Yahoo! Finance API Client
+            </summary>
+        </member>
+        <member name="P:MatthiWare.YahooFinance.YahooFinanceClient.Search">
+            <summary>
+            Search for a ticker symbol or ISIN
+            </summary>
+        </member>
+        <member name="P:MatthiWare.YahooFinance.YahooFinanceClient.Quote">
+            <summary>
+            Look up quotes
+            </summary>
+        </member>
+        <member name="P:MatthiWare.YahooFinance.YahooFinanceClient.History">
+            <summary>
+            Historical data
+            </summary>
+        </member>
     </members>
 </doc>
