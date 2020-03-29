@@ -4,7 +4,44 @@
         <name>YahooFinance.Core</name>
     </assembly>
     <members>
-        <!-- Badly formed XML comment ignored for member "T:MatthiWare.YahooFinance.Abstractions.History.IHistoryService" -->
+        <member name="T:MatthiWare.YahooFinance.Abstractions.History.IHistoryService">
+            <summary>
+            History API
+            </summary>
+        </member>
+        <member name="M:MatthiWare.YahooFinance.Abstractions.History.IHistoryService.GetDividendsAsync(System.String,NodaTime.Instant,NodaTime.Instant,MatthiWare.YahooFinance.Core.Enums.HistoryInterval,System.Threading.CancellationToken)">
+            <summary>
+            Get a list of dividends from a given period
+            </summary>
+            <param name="symbol">Ticker symbol e.g. DFN.TO</param>
+            <param name="start">Start instant</param>
+            <param name="end">End period</param>
+            <param name="interval">Lookup interval</param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MatthiWare.YahooFinance.Abstractions.History.IHistoryService.GetPricesAsync(System.String,NodaTime.Instant,NodaTime.Instant,MatthiWare.YahooFinance.Core.Enums.HistoryInterval,System.Threading.CancellationToken)">
+            <summary>
+            Get a list of prices from a given period
+            </summary>
+            <param name="symbol">Ticker symbol e.g. DFN.TO</param>
+            <param name="start">Start instant</param>
+            <param name="end">End period</param>
+            <param name="interval">Lookup interval</param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MatthiWare.YahooFinance.Abstractions.History.IHistoryService.GetSplitsAsync(System.String,NodaTime.Instant,NodaTime.Instant,MatthiWare.YahooFinance.Core.Enums.HistoryInterval,System.Threading.CancellationToken)">
+            <summary>
+            Get a list of splits from a given period
+            </summary>
+            <param name="symbol">Ticker symbol e.g. DFN.TO</param>
+            <param name="start">Start instant</param>
+            <param name="end">End period</param>
+            <param name="interval">Lookup interval</param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
         <member name="P:MatthiWare.YahooFinance.Abstractions.Http.IApiResponse`1.Metadata">
             <summary>
             API Call Metadata
@@ -30,11 +67,82 @@
             https://query1.finance.yahoo.com/v7/finance/quote?symbols=O,MSFT
             </summary>
         </member>
+        <member name="M:MatthiWare.YahooFinance.Abstractions.Quote.IQuoteService.LookupAsync(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Look up quotes of multiple symbols
+            </summary>
+            <param name="symbols">List of symbols</param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MatthiWare.YahooFinance.Abstractions.Quote.IQuoteService.LookupAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Look up quotes for a symbol
+            </summary>
+            <param name="symbol"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
         <member name="T:MatthiWare.YahooFinance.Abstractions.Search.ISearchService">
             <summary>
             https://query1.finance.yahoo.com/v1/finance/search?q=O
             </summary>
         </member>
+        <member name="M:MatthiWare.YahooFinance.Abstractions.Search.ISearchService.SearchAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Search for a symbol, returns a list of matching results.
+            First result is the best matching result.
+            </summary>
+            <param name="search">search phrase</param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MatthiWare.YahooFinance.IYahooFinanceClient">
+            <summary>
+            Yahoo! Finance API Client
+            </summary>
+        </member>
+        <member name="P:MatthiWare.YahooFinance.IYahooFinanceClient.Search">
+            <summary>
+            Search for a ticker symbol or ISIN
+            </summary>
+        </member>
+        <member name="P:MatthiWare.YahooFinance.IYahooFinanceClient.Quote">
+            <summary>
+            Look up quotes
+            </summary>
+        </member>
+        <member name="P:MatthiWare.YahooFinance.IYahooFinanceClient.History">
+            <summary>
+            Historical data
+            </summary>
+        </member>
         <!-- Badly formed XML comment ignored for member "T:MatthiWare.YahooFinance.Core.Helpers.QueryStringBuilder" -->
+        <member name="M:MatthiWare.YahooFinance.Extensions.ServiceCollectionExtensions.AddYahooFinance(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds <see cref="T:MatthiWare.YahooFinance.IYahooFinanceClient"/> to the services.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="T:MatthiWare.YahooFinance.YahooFinanceClient">
+            <summary>
+            Yahoo! Finance API Client
+            </summary>
+        </member>
+        <member name="P:MatthiWare.YahooFinance.YahooFinanceClient.Search">
+            <summary>
+            Search for a ticker symbol or ISIN
+            </summary>
+        </member>
+        <member name="P:MatthiWare.YahooFinance.YahooFinanceClient.Quote">
+            <summary>
+            Look up quotes
+            </summary>
+        </member>
+        <member name="P:MatthiWare.YahooFinance.YahooFinanceClient.History">
+            <summary>
+            Historical data
+            </summary>
+        </member>
     </members>
 </doc>

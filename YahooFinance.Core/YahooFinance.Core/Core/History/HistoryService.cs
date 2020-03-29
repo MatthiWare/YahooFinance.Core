@@ -11,7 +11,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using MatthiWare.YahooFinance.Abstractions.History;
 using MatthiWare.YahooFinance.Core.Enums;
-using System.Runtime.CompilerServices;
 
 namespace MatthiWare.YahooFinance.Core.History
 {
@@ -45,7 +44,7 @@ namespace MatthiWare.YahooFinance.Core.History
                 .OrderByDescending(d => d.Date)
                 .ToList());
 
-            logger.LogDebug("HistoryService::GetDividendsAsync returns SUCCES - found {count} results", results.Count);
+            logger.LogInformation("HistoryService::GetDividendsAsync returns SUCCES - found {count} results", results.Count);
 
             return ApiResponse.FromSucces(apiResult.Metadata, results);
         }
@@ -67,7 +66,7 @@ namespace MatthiWare.YahooFinance.Core.History
                 .OrderByDescending(d => d.Date)
                 .ToList());
 
-            logger.LogDebug("HistoryService::GetPricesAsync returns SUCCES - found {count} results", results.Count);
+            logger.LogInformation("HistoryService::GetPricesAsync returns SUCCES - found {count} results", results.Count);
 
             return ApiResponse.FromSucces(apiResult.Metadata, results);
         }
@@ -89,7 +88,7 @@ namespace MatthiWare.YahooFinance.Core.History
                 .OrderByDescending(d => d.Date)
                 .ToList());
 
-            logger.LogDebug("HistoryService::GetSplitsAsync returns SUCCES - found {count} results", results.Count);
+            logger.LogInformation("HistoryService::GetSplitsAsync returns SUCCES - found {count} results", results.Count);
 
             return ApiResponse.FromSucces(apiResult.Metadata, results);
         }
@@ -110,7 +109,7 @@ namespace MatthiWare.YahooFinance.Core.History
                 { "symbol", symbol }
             };
 
-            return await client.ExecuteCsvAsync<T>(url, nvc, qsb);
+            return await client.ExecuteCsvAsync<T>(url, nvc, qsb, cancellationToken);
         }
 
         private string GetEventTypeFromHistoryItem<T>()

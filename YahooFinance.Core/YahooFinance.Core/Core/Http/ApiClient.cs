@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using NodaTime;
 using MatthiWare.YahooFinance.Core.Converters;
 using MatthiWare.YahooFinance.Core.History;
+using System.Threading;
 
 namespace MatthiWare.YahooFinance.Core.Http
 {
@@ -37,7 +38,7 @@ namespace MatthiWare.YahooFinance.Core.Http
         }
 
         public async Task<IApiResponse<IEnumerable<ReturnType>>> ExecuteCsvAsync<ReturnType>(
-            string urlPattern, NameValueCollection nvc, QueryStringBuilder qsb)
+            string urlPattern, NameValueCollection nvc, QueryStringBuilder qsb, CancellationToken cancellationToken)
             where ReturnType : class
         {
             HttpStateModel state = null;
@@ -48,7 +49,9 @@ namespace MatthiWare.YahooFinance.Core.Http
 
                 var url = $"{urlPattern}{qsb.Build()}";
 
-                state = await ExecuteInternalAsync(url);
+                state = await ExecuteInternalAsync(url, cancellationToken);
+
+                cancellationToken.ThrowIfCancellationRequested();
 
                 if (state.Error)
                     return ApiResponse.FromError<IEnumerable<ReturnType>>(state.Meta, state.Response);
@@ -58,12 +61,20 @@ namespace MatthiWare.YahooFinance.Core.Http
                     reader.Configuration.TypeConverterCache.AddConverter<Instant>(new NodaTimeCsvConverter());
                     reader.Configuration.TypeConverterCache.AddConverter<SplitData>(new SplitCsvConverter());
 
+                    cancellationToken.ThrowIfCancellationRequested();
+
                     var records = reader.GetRecords<ReturnType>().ToList().AsEnumerable();
 
+                    cancellationToken.ThrowIfCancellationRequested();
                     logger.LogDebug("Correctly deserialized response");
 
                     return ApiResponse.FromSucces(state.Meta, records);
                 }
+            }
+            catch (OperationCanceledException tce)
+            {
+                logger.LogInformation("Task cancelled");
+                return await Task.FromCanceled<IApiResponse<IEnumerable<ReturnType>>>(cancellationToken);
             }
             catch (Exception ex)
             {
@@ -72,7 +83,7 @@ namespace MatthiWare.YahooFinance.Core.Http
         }
 
         public async Task<IApiResponse<ReturnType>> ExecuteJsonAsync<ReturnType>(
-            string urlPattern, QueryStringBuilder qsb)
+            string urlPattern, QueryStringBuilder qsb, CancellationToken cancellationToken)
             where ReturnType : class
         {
             var url = $"{urlPattern}{qsb.Build()}";
@@ -81,16 +92,25 @@ namespace MatthiWare.YahooFinance.Core.Http
 
             try
             {
-                state = await ExecuteInternalAsync(url);
+                state = await ExecuteInternalAsync(url, cancellationToken);
 
                 if (state.Error)
                     return ApiResponse.FromError<ReturnType>(state.Meta, state.Response);
 
+                cancellationToken.ThrowIfCancellationRequested();
+
                 var data = JsonConvert.DeserializeObject<ReturnType>(state.Response, jsonSerializerSettings);
+
+                cancellationToken.ThrowIfCancellationRequested();
 
                 logger.LogDebug("Correctly deserialized response");
 
                 return ApiResponse.FromSucces(state.Meta, data);
+            }
+            catch (OperationCanceledException tce)
+            {
+                logger.LogInformation("Task cancelled");
+                return await Task.FromCanceled<IApiResponse<ReturnType>>(cancellationToken);
             }
             catch (Exception ex)
             {
@@ -99,14 +119,14 @@ namespace MatthiWare.YahooFinance.Core.Http
         }
 
 
-        private async Task<HttpStateModel> ExecuteInternalAsync(string url)
+        private async Task<HttpStateModel> ExecuteInternalAsync(string url, CancellationToken cancellationToken)
         {
             logger.LogDebug("Executing GET on {url}", url);
 
             HttpMetadata meta = null;
             var startTime = DateTime.UtcNow;
 
-            using (var responseContent = await client.GetAsync(url))
+            using (var responseContent = await client.GetAsync(url, cancellationToken))
             {
                 try
                 {
@@ -114,9 +134,15 @@ namespace MatthiWare.YahooFinance.Core.Http
 
                     logger.LogDebug("Response status code: {StatusCode}", responseContent.StatusCode);
 
+                    cancellationToken.ThrowIfCancellationRequested();
+
                     var content = await responseContent.EnsureSuccessStatusCode().Content.ReadAsStringAsync();
 
                     return new HttpStateModel(meta, content, false);
+                }
+                catch (OperationCanceledException tce)
+                {
+                    return await Task.FromCanceled<HttpStateModel>(cancellationToken);
                 }
                 catch (Exception ex)
                 {

@@ -1,10 +1,12 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using System.Threading;
 using Xunit;
 using Xunit.Abstractions;
 using YahooFinance.Tests.Extensions;
 using Microsoft.Extensions.Logging;
 using MatthiWare.YahooFinance;
+using System;
 
 namespace YahooFinance.Tests.Search
 {
@@ -37,7 +39,19 @@ namespace YahooFinance.Tests.Search
 
             Assert.Equal(symbol, firstResultSymbol.Symbol);
             Assert.Equal(symbol, firstResultIsin.Symbol);
+        }
 
+        [Theory]
+        [InlineData(0)]
+        [InlineData(50)]
+        public async Task CheckCancelledResult(int after)
+        {
+            var client = new YahooFinanceClient(logger);
+
+            var cts = new CancellationTokenSource();
+            cts.CancelAfter(after);
+
+            await client.Search.SearchAsync("O", cts.Token).CheckCancelledAsync();
         }
     }
 }

@@ -11,6 +11,13 @@ namespace MatthiWare.YahooFinance.Abstractions.Search
     /// </summary>
     public interface ISearchService
     {
+        /// <summary>
+        /// Search for a symbol, returns a list of matching results.
+        /// First result is the best matching result.
+        /// </summary>
+        /// <param name="search">search phrase</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<IApiResponse<IReadOnlyList<QuoteResult>>> SearchAsync(string search, CancellationToken cancellationToken = default);
     }
 }

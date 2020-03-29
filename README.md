@@ -1,3 +1,9 @@
+<p align="center">
+    <a href="https://ci.appveyor.com/project/Matthiee/yahoofinance-core"><img src="https://ci.appveyor.com/api/projects/status/8a3r5c9rxot4ixed?svg=true" alt="Build Status (AppVeyor)"></a>
+    <a href="https://github.com/MatthiWare/YahooFinance.Core/issues"><img src="https://img.shields.io/github/issues/MatthiWare/YahooFinance.Core.svg" alt="Open Issues"></a>
+    <a href="https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)"><img src="https://img.shields.io/badge/License-AGPL%20v3-blue.svg" alt="AGPL v3"></a>
+</p>
+
 # YahooFinance.Core
 A simple Yahoo Finance API made in .NET Standard
 

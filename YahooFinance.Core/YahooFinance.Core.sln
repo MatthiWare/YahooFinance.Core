@@ -5,7 +5,17 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YahooFinance.Core", "YahooFinance.Core\YahooFinance.Core.csproj", "{44510D65-692E-4447-AFB1-45A3E16724B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YahooFinance.Core.Tests", "YahooFinance.Core.Tests\YahooFinance.Core.Tests.csproj", "{6A94F0A2-5591-4285-89D3-07BD70BCCE45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YahooFinance.Core.Tests", "YahooFinance.Core.Tests\YahooFinance.Core.Tests.csproj", "{6A94F0A2-5591-4285-89D3-07BD70BCCE45}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C78EC2D3-5DE5-4BD0-B187-784E7D8A9EBA}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		..\appveyor.yml = ..\appveyor.yml
+		..\build.cake = ..\build.cake
+		..\build.ps1 = ..\build.ps1
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

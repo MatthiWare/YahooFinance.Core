@@ -2,6 +2,8 @@
 using MatthiWare.YahooFinance.Abstractions.Http;
 using Microsoft.Extensions.Logging;
 using NodaTime;
+using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
@@ -96,6 +98,41 @@ namespace YahooFinance.Tests.History
                     break;
                 case "split":
                     AssertHasError(await client.History.GetSplitsAsync(string.Empty, clock.GetCurrentInstant().Minus(Duration.FromDays(365)), clock.GetCurrentInstant()));
+                    break;
+                default:
+                    throw new Xunit.Sdk.XunitException("Invalid history type");
+            }
+        }
+
+        [Theory]
+        [InlineData("div", 0)]
+        [InlineData("div", 25)]
+        [InlineData("history", 0)]
+        [InlineData("history", 25)]
+        [InlineData("split", 0)]
+        [InlineData("split", 25)]
+        public async Task CheckCancelledResult(string historyType, int after)
+        {
+            var client = new YahooFinanceClient(logger);
+
+            var cts = new CancellationTokenSource();
+            cts.CancelAfter(after);
+
+            const string symbol = "MSFT";
+
+            switch (historyType)
+            {
+                case "div":
+                    await client.History.GetDividendsAsync(symbol, Instant.MinValue, clock.GetCurrentInstant(), 
+                        cancellationToken: cts.Token).CheckCancelledAsync();
+                    break;
+                case "history":
+                    await client.History.GetPricesAsync(symbol, Instant.MinValue, clock.GetCurrentInstant(), 
+                        cancellationToken: cts.Token).CheckCancelledAsync();
+                    break;
+                case "split":
+                    await client.History.GetSplitsAsync(symbol, Instant.MinValue, clock.GetCurrentInstant(), 
+                        cancellationToken: cts.Token).CheckCancelledAsync();
                     break;
                 default:
                     throw new Xunit.Sdk.XunitException("Invalid history type");
