@@ -20,8 +20,6 @@ namespace MatthiWare.YahooFinance
     {
         private const string BaseUrl = "https://query1.finance.yahoo.com/";
 
-        private readonly ILogger<YahooFinanceClient> logger;
-
         private readonly Lazy<ISearchService> searchServiceLazy;
         private readonly Lazy<IQuoteService> quoteServiceLazy;
         private readonly Lazy<IHistoryService> historyServiceLazy;
@@ -36,7 +34,7 @@ namespace MatthiWare.YahooFinance
 
         public YahooFinanceClient(ILogger<YahooFinanceClient> logger)
         {
-            this.logger = logger ?? NullLogger<YahooFinanceClient>.Instance;
+            logger = logger ?? NullLogger<YahooFinanceClient>.Instance;
 
             client = new HttpClient()
             {

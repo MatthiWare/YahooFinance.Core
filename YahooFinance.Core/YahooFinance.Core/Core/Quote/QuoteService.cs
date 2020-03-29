@@ -15,20 +15,11 @@ namespace MatthiWare.YahooFinance.Core.Quote
     {
         private readonly IApiClient client;
         private readonly ILogger logger;
-        private readonly IMapper mapper;
 
         public QuoteService(IApiClient client, ILogger logger)
         {
             this.client = client;
             this.logger = logger;
-
-            var mapperConfig = new MapperConfiguration(_ =>
-            {
-                _.SourceMemberNamingConvention = new LowerUnderscoreNamingConvention();
-                _.DestinationMemberNamingConvention = new PascalCaseNamingConvention();
-            });
-
-            mapper = mapperConfig.CreateMapper();
 
             logger.LogDebug("Created QuoteService instance");
         }
