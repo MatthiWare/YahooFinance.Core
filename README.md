@@ -2,6 +2,7 @@
     <a href="https://ci.appveyor.com/project/Matthiee/yahoofinance-core"><img src="https://ci.appveyor.com/api/projects/status/8a3r5c9rxot4ixed?svg=true" alt="Build Status (AppVeyor)"></a>
     <a href="https://github.com/MatthiWare/YahooFinance.Core/issues"><img src="https://img.shields.io/github/issues/MatthiWare/YahooFinance.Core.svg" alt="Open Issues"></a>
     <a href="https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)"><img src="https://img.shields.io/badge/License-AGPL%20v3-blue.svg" alt="AGPL v3"></a>
+    <a href="https://www.nuget.org/packages/MatthiWare.YahooFinance"><img src="https://buildstats.info/nuget/MatthiWare.YahooFinance" alt="NuGet badge"></a>
 </p>
 
 # YahooFinance.Core

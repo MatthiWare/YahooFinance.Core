@@ -3,9 +3,27 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>MatthiWare.YahooFinance</RootNamespace>
+    <PackageId>MatthiWare.YahooFinance</PackageId>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+    <Version>0.1.0</Version>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/MatthiWare/YahooFinance.Core</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MatthiWare/YahooFinance.Core</RepositoryUrl>
+    <Copyright>Copyright Matthias Beerens 2020</Copyright>
+    <Authors>Matthias Beerens</Authors>
+    <Company>MatthiWare</Company>
+    <Product>YahooFinance API</Product>
+    <Description>A simple Yahoo Finance API made in .NET Standard</Description>
+    <PackageReleaseNotes>First version</PackageReleaseNotes>
+    <PackageTags>yahoo-finance;finance-api;finance;stock;dividend;eod;stock-prices;splits</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Source\Repos\YahooFinance.Core\YahooFinance.Core\YahooFinance.Core\YahooFinance.Core.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>D:\Source\Repos\YahooFinance.Core\YahooFinance.Core\YahooFinance.Core\YahooFinance.Core.xml</DocumentationFile>
   </PropertyGroup>
 
@@ -19,6 +37,13 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.2" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="NodaTime" Version="2.4.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
