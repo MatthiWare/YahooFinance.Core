@@ -39,6 +39,15 @@ var client = new YahooFinanceClient();
 var result = await client.Search.SearchAsync("Symbol or ISIN");
 ```
 
+##### Get Quote
+
+```csharp
+var client = new YahooFinanceClient();
+
+// Returns a list of quote results
+var result = await client.Quote.LookupAsync("Symbol or list of symbols");
+```
+
 ##### Get Dividend History
 
 ```csharp
