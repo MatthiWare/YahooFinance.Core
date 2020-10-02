@@ -6,7 +6,6 @@ using Xunit.Abstractions;
 using YahooFinance.Tests.Extensions;
 using Microsoft.Extensions.Logging;
 using MatthiWare.YahooFinance;
-using System;
 
 namespace YahooFinance.Tests.Search
 {
