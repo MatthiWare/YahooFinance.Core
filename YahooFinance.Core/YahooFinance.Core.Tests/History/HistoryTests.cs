@@ -23,6 +23,7 @@ namespace YahooFinance.Tests.History
 
         [Theory]
         [InlineData("O")]
+        [InlineData("ACAMU")]
         public async Task GetDividendsWorksCorrectly(string symbol)
         {
             var client = new YahooFinanceClient(logger);
@@ -35,6 +36,7 @@ namespace YahooFinance.Tests.History
         [Theory]
         [InlineData("O")]
         [InlineData("SPG")]
+        [InlineData("ACAMU")]
         public async Task GetSplitsWorksCorrectly(string symbol)
         {
             var client = new YahooFinanceClient(logger);

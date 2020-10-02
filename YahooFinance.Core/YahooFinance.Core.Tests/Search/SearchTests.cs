@@ -21,6 +21,7 @@ namespace YahooFinance.Tests.Search
         [Theory]
         [InlineData("O", "US7561091049")]
         [InlineData("ABI.BR", "BE0974293251")]
+        [InlineData("ACAMU", "US0042852014")]
         public async Task SearchReturnsCorrectSymbol(string symbol, string isin)
         {
             var client = new YahooFinanceClient(logger);
