@@ -15,6 +15,7 @@ using NodaTime;
 using MatthiWare.YahooFinance.Core.Converters;
 using MatthiWare.YahooFinance.Core.History;
 using System.Threading;
+using CsvHelper.TypeConversion;
 
 namespace MatthiWare.YahooFinance.Core.Http
 {
@@ -58,8 +59,13 @@ namespace MatthiWare.YahooFinance.Core.Http
 
                 using (var reader = new CsvReader(new StringReader(state.Response), CultureInfo.InvariantCulture))
                 {
+                    var typeConverterOptions = new TypeConverterOptions();
+                    typeConverterOptions.NullValues.Add("null");
+
                     reader.Configuration.TypeConverterCache.AddConverter<Instant>(new NodaTimeCsvConverter());
                     reader.Configuration.TypeConverterCache.AddConverter<SplitData>(new SplitCsvConverter());
+                    reader.Configuration.TypeConverterCache.AddConverter<decimal>(new DecimalCsvConverter());
+                    reader.Configuration.TypeConverterCache.AddConverter<int>(new IntCsvConverter());
 
                     cancellationToken.ThrowIfCancellationRequested();
 

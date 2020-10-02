@@ -19,7 +19,7 @@ namespace YahooFinance.Tests.Quote
         }
 
         [Theory]
-        [InlineData(new string[] { "O", "MSFT", "ABI.BR" }, 3)]
+        [InlineData(new string[] { "O", "MSFT", "ABI.BR", "ACAMU" }, 4)]
         [InlineData(new string[] { "O", "O", "O" }, 1)]
         public async Task LookupWorks(string[] symbols, int results)
         {

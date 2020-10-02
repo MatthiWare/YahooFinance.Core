@@ -2,7 +2,6 @@
 using MatthiWare.YahooFinance.Abstractions.Http;
 using Microsoft.Extensions.Logging;
 using NodaTime;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -47,6 +46,7 @@ namespace YahooFinance.Tests.History
 
         [Theory]
         [InlineData("O")]
+        [InlineData("ACAMU")]
         public async Task GetPricesWorksCorrectly(string symbol)
         {
             var client = new YahooFinanceClient(logger);

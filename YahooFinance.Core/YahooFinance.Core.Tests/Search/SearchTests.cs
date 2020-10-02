@@ -6,7 +6,6 @@ using Xunit.Abstractions;
 using YahooFinance.Tests.Extensions;
 using Microsoft.Extensions.Logging;
 using MatthiWare.YahooFinance;
-using System;
 
 namespace YahooFinance.Tests.Search
 {
@@ -20,8 +19,9 @@ namespace YahooFinance.Tests.Search
         }
 
         [Theory]
-        [InlineData("O", "US7561091049")]
+        [InlineData("AAPL", "US0378331005")]
         [InlineData("ABI.BR", "BE0974293251")]
+        [InlineData("ACAMU", "US0042852014")]
         public async Task SearchReturnsCorrectSymbol(string symbol, string isin)
         {
             var client = new YahooFinanceClient(logger);

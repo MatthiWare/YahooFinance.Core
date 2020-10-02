@@ -117,6 +117,18 @@
             Historical data
             </summary>
         </member>
+        <member name="T:MatthiWare.YahooFinance.Core.Converters.DecimalCsvConverter">
+            <inheritdoc/>
+        </member>
+        <member name="M:MatthiWare.YahooFinance.Core.Converters.DecimalCsvConverter.ConvertFromString(System.String,CsvHelper.IReaderRow,CsvHelper.Configuration.MemberMapData)">
+            <inheritdoc/>
+        </member>
+        <member name="T:MatthiWare.YahooFinance.Core.Converters.IntCsvConverter">
+            <inheritdoc/>
+        </member>
+        <member name="M:MatthiWare.YahooFinance.Core.Converters.IntCsvConverter.ConvertFromString(System.String,CsvHelper.IReaderRow,CsvHelper.Configuration.MemberMapData)">
+            <inheritdoc/>
+        </member>
         <!-- Badly formed XML comment ignored for member "T:MatthiWare.YahooFinance.Core.Helpers.QueryStringBuilder" -->
         <member name="M:MatthiWare.YahooFinance.Extensions.ServiceCollectionExtensions.AddYahooFinance(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
