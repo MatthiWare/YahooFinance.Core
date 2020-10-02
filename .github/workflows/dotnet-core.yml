@@ -1,5 +1,8 @@
 name: .NET Core
 
+defaults:
+  run:
+    working-directory: YahooFinance.Core
 on:
   push:
     branches: [ master ]
