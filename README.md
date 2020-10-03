@@ -1,9 +1,9 @@
-<p align="center">
-    <a href="https://ci.appveyor.com/project/Matthiee/yahoofinance-core"><img src="https://ci.appveyor.com/api/projects/status/8a3r5c9rxot4ixed?svg=true" alt="Build Status (AppVeyor)"></a>
-    <a href="https://github.com/MatthiWare/YahooFinance.Core/issues"><img src="https://img.shields.io/github/issues/MatthiWare/YahooFinance.Core.svg" alt="Open Issues"></a>
-    <a href="https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)"><img src="https://img.shields.io/badge/License-AGPL%20v3-blue.svg" alt="AGPL v3"></a>
-    <a href="https://www.nuget.org/packages/MatthiWare.YahooFinance"><img src="https://buildstats.info/nuget/MatthiWare.YahooFinance" alt="NuGet badge"></a>
-</p>
+![.NET Core](https://github.com/MatthiWare/YahooFinance.Core/workflows/.NET%20Core/badge.svg)
+[![AppVeyor](https://ci.appveyor.com/api/projects/status/8a3r5c9rxot4ixed?svg=true)](https://ci.appveyor.com/project/Matthiee/yahoofinance-core)
+[![Issues](https://img.shields.io/github/issues/MatthiWare/YahooFinance.Core.svg)](https://github.com/MatthiWare/YahooFinance.Core/issues)
+[![License](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://tldrlegal.com/license/apache-license-2.0-(apache-2.0))
+[![Nuget](https://buildstats.info/nuget/MatthiWare.YahooFinance)](https://www.nuget.org/packages/MatthiWare.YahooFinance)
+
 
 # YahooFinance.Core
 A simple Yahoo Finance API made in .NET Standard
