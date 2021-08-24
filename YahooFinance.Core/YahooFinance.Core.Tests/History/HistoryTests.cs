@@ -23,6 +23,12 @@ namespace YahooFinance.Tests.History
 
         [Theory]
         [InlineData("O")]
+        [InlineData("PRU")]
+        [InlineData("JNJ")]
+        [InlineData("AD.AS")]
+        [InlineData("ENEL.MI")]
+        [InlineData("ADM.L")]
+        [InlineData("AGS.BR")]
         public async Task GetDividendsWorksCorrectly(string symbol)
         {
             var client = new YahooFinanceClient(logger);
@@ -34,7 +40,10 @@ namespace YahooFinance.Tests.History
 
         [Theory]
         [InlineData("O")]
-        [InlineData("SPG")]
+        [InlineData("JNJ")]
+        [InlineData("AD.AS")]
+        [InlineData("ENEL.MI")]
+        [InlineData("AGS.BR")]
         public async Task GetSplitsWorksCorrectly(string symbol)
         {
             var client = new YahooFinanceClient(logger);
@@ -46,7 +55,12 @@ namespace YahooFinance.Tests.History
 
         [Theory]
         [InlineData("O")]
-        [InlineData("ACAMU")]
+        [InlineData("PRU")]
+        [InlineData("JNJ")]
+        [InlineData("AD.AS")]
+        [InlineData("ENEL.MI")]
+        [InlineData("ADM.L")]
+        [InlineData("AGS.BR")]
         public async Task GetPricesWorksCorrectly(string symbol)
         {
             var client = new YahooFinanceClient(logger);

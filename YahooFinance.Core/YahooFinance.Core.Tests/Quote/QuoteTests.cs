@@ -17,9 +17,9 @@ namespace YahooFinance.Tests.Quote
         {
             logger = testOutput.BuildLoggerFor<YahooFinanceClient>();
         }
-
+        
         [Theory]
-        [InlineData(new string[] { "O", "MSFT", "ABI.BR", "ACAMU" }, 4)]
+        [InlineData(new string[] { "O", "MSFT", "ABI.BR", "ADM.L", "AGS.BR", "ENEL.MI", "AD.AS" }, 7)]
         [InlineData(new string[] { "O", "O", "O" }, 1)]
         public async Task LookupWorks(string[] symbols, int results)
         {

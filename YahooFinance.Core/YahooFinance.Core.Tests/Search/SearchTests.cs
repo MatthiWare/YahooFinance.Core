@@ -20,8 +20,11 @@ namespace YahooFinance.Tests.Search
 
         [Theory]
         [InlineData("AAPL", "US0378331005")]
-        [InlineData("ABI.BR", "BE0974293251")]
-        [InlineData("ACAMU", "US0042852014")]
+        [InlineData("AD.AS", "NL0011794037")]
+        [InlineData("AGS.BR", "BE0974264930")]
+        [InlineData("ADM.L", "GB00B02J6398")]
+        [InlineData("ENEL.MI", "IT0003128367")]
+        [InlineData("O", "US7561091049")]
         public async Task SearchReturnsCorrectSymbol(string symbol, string isin)
         {
             var client = new YahooFinanceClient(logger);
@@ -32,8 +35,8 @@ namespace YahooFinance.Tests.Search
             resultSymbol.AssertValidResponse();
             resultIsin.AssertValidResponse();
 
-            var firstResultSymbol = resultSymbol.Data.First();
-            var firstResultIsin = resultIsin.Data.First();
+            var firstResultSymbol = resultSymbol.Data.First(x => x.Symbol == symbol);
+            var firstResultIsin = resultIsin.Data.First(x => x.Symbol == symbol);
 
             Assert.Equal(firstResultSymbol, firstResultIsin);
 
