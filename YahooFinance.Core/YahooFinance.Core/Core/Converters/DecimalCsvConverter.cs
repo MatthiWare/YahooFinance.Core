@@ -2,6 +2,7 @@
 using CsvHelper.Configuration;
 using CsvHelper.TypeConversion;
 using System;
+using System.Globalization;
 
 namespace MatthiWare.YahooFinance.Core.Converters
 {
@@ -9,14 +10,15 @@ namespace MatthiWare.YahooFinance.Core.Converters
     public class DecimalCsvConverter : DefaultTypeConverter
     {
         /// <inheritdoc/>
-        public override object ConvertFromString(string text, IReaderRow row, MemberMapData memberMapData)
+        public override object ConvertFromString(
+            string text,
+            IReaderRow row,
+            MemberMapData memberMapData
+        )
         {
-            if (!decimal.TryParse(text, out var convertedDecimal))
-            {
-                return decimal.MinValue;
-            }
-
-            return convertedDecimal;
+            return decimal.TryParse(text, NumberStyles.Any, CultureInfo.InvariantCulture, out var convertedDecimal) 
+                ? convertedDecimal 
+                : decimal.MinValue;
         }
     }
 }
